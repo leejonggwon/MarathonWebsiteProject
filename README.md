@@ -74,20 +74,24 @@ https://www.youtube.com/watch?v=HDL472NQWXA
 
 # 4. DataBase E-R Diagram
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8702110a-16cd-4341-8128-b79fdf0deec5" width=100% />
+  <img src="https://github.com/user-attachments/assets/faa1f333-29c0-4f39-b495-8a8e97427c45" width=100% />
   <br>
   [E-R Diagram]
 </p>
 <br>
 
+ 
+
 
 # 5. 기능구조도
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/13926689-cb28-4cf4-bef1-a0589860bb74" width=55% />
+  <img src="https://github.com/user-attachments/assets/6f24b3d8-b193-43e0-9720-eaed34f23e1f" width=55% />
   <br>
   [기능구조도]
 </p>
 <br>
+
+
 
 
 # 6. 핵심기능설명
