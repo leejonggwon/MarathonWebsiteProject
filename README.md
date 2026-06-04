@@ -126,95 +126,85 @@ JSP Form 데이터와 이미지 파일을 jQuery FormData를 통해 비동기(AJ
 
 
 
-## 2. 좌석 발권 및 관리 시스템 (Seat Reservation System)
-사용자가 실시간으로 열람실 좌석 현황을 확인하고, 발권 및 반납을 자기주도적으로 수행할 수 있는 통합 관리 시스템입니다 <br>
+## 2. 비동기 RESTful 페이징 시스템 (Asynchronous Pagination System)
+사용자가 요청한 페이지 번호에 맞춰 필요한 범위의 데이터만 DB에서 조회(Offset 기반 페이징)하고, 하단 페이지 블록을 동적으로 계산하여 화면 리로드 없이 페이징을 수행하는 고성능 비동기 시스템입니다 <br>
 <br>
 
-### 2-1. 실시간 좌석 배치 시각화
- -  `c:forEach`와 `c:choose`를 활용하여 DataBase의 좌석상태값(`seatAvailable`)에 따라 버튼의 활성화 상태를 실시간으로 렌더링합니다 <br>
 <br>
+
+### 2-1. 시스템 구성 및 흐름
+   **1. 페이지 요청 (Client)** - 사용자가 하단 페이지 번호를 클릭하면 자바스크립트가 `page` 변수 값을 갱신하고 AJAX 요청을 전송합니다 <br>
+   **2. 파라미터 수집 (Controller)** - Spring MVC가 요청 파라미터를 `Criteria` 객체로 바인딩하여 현재 페이지 정보(`page`, `perPageNum`)를 자동으로 수집합니다 <br>
+   **3. 구간 데이터 조회 (MyBatis)** - `Criteria` 내부에서 계산된 시작 인덱스(`pageStart`)를 MySQL의 LIMIT 절에 대입하여 특정 구간의 레코드만 가져옵니다 <br>
+   **4. 블록 계산 (PageMaker)** - 총 게시글 수를 기반으로 하단에 표시할 시작 페이지, 마지막 페이지, 이전/다음 버튼 활성화 여부를 계산합니다 <br>
+   **5. JSON 응답 및 동적 렌더링** - 서버가 글 목록(`list`)과 페이징 데이터(`pageMaker`)를 `Map`에 담아 JSON으로 리턴하면, jQuery가 이를 파싱하여 화면 테이블과 pagination UI를 동적으로 다시 그립니다 <br>
+<br>
+
+
+### 2-2. 핵심 컴포넌트별 상세 구현
+   **1. [Back-End] REST Controller & MyBatis SQL** <br>
+     - **API 설계 (GET /board/all)** - `@ResponseBody` 어노테이션을 사용하여 데이터 세트(list, pageMaker)를 JSON Object 포맷으로 클라이언트에 즉시 전달합니다 <br>
+     - **부분 조회 쿼리** - `LIMIT #{pageStart}, #{perPageNum}` 구문을 사용하여 대용량 테이블 환경에서도 필요한 행만 골라내므로 서버 메모리와 DataBase 부하를 최소화합니다 <br>
+   **[Front-End] Dynamic HTML Renderer (jQuery)** <br>
+   - **동기 이벤트 바인딩** - 동적으로 생성된 페이징 버튼(`.paginate_button a`)에 `on("click")` 이벤트를 위임(Event Delegation) 처리하여, 클릭 시 브라우저 기본 이동(`preventDefault()`)을 막고 가상 form 태그의 page 값을 바인딩하여 `loadList()`를 재호출합니다 <br>
+   - **컴포넌트 갱신** - 서버가 응답한 JSON 데이터를 반복문(`$.each`) 돌려 리스트 뷰를 채우고, `makePagination()` 함수를 통해 하단 버튼 UI 구조를 완전히 초기화한 후 매번 새로 렌더링합니다 <br>
+<br>
+
+
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2172384f-3189-44fd-9085-8cb8374abc44" width="90%" />
+  <img src="https://github.com/user-attachments/assets/51c477dc-9964-47f9-a8b2-862806a71d12" width="90%" />
   <br>
-   [좌석발권페이지]
+   [비동기 RESTful 페이징 시스템]
 </p>
 <br>
 
-### 2-2. 중복 발권 방지
- - 사용자의 현재 발권상태(`memStatus`)를 실시간으로 체크하여, 이미 좌석을 이용 중인 경우 추가 발권을 원천 차단하는 정교한 예외 처리를 구현했습니다 <br>
- - 이미 이용 중인 좌석이 있는 경우, 추가 발권 시도를 감지하여 "사용 중인 좌석이 있습니다" 라는 안내와 함께 프로세스를 안전하게 차단함으로써 데이터 중복 생성을 방지했습니다 <br>
-<br>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8a443e61-535f-48f2-b170-5590ec50c0cd" width="90%" />
-  <br>
-   [중복 발권 방지]
-</p>
+
+
+## 3. AJAX 기반 비동기 공지사항 게시판
+Bootstrap 3 UI 프레임워크와 jQuery 비동기 통신(AJAX)을 활용하여 구현한 공지사항 게시판입니다 <br>
+전체 페이지의 새로고침없이 게시글의 생성, 조회, 수정, 삭제(CRUD)가 실시간으로 처리되며, 이미지 파일 유효성 검증 기능이 포함되어 있습니다 <br>
 <br>
 
-### 2-3. 비동기 발권 프로세스
- - 좌석 발권으로 [좌석 점유 상태 변경 → 회원 상태 업데이트 → 발권 데이터 생성]으로 이어지는 연쇄적인 비동기 로직을 구현하여 사용자 편의성을 극대화했습니다 <br>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/72cab087-9903-4817-84b1-a31403d08002" width="50%" />
-  <br>
-   [Ajax 비동기 발권 프로세스]
-</p>
-
-
-### 2-4. 비통합 이용 정보 관리
- - 현재 이용 중인 좌석 정보(n`owRInfo`)와 과거 이용 기록(`rRecord`)을 한 화면에서 비동기로 조회할 수 있으며, JavaScript `Date` 객체 가공을 통해 기록 데이터 가독성을 높였습니다. <br>
+### 3-1. 웹 리로드 없는 비동기(AJAX) CRUD 및 RESTful 연동
+- **전체 목록 조회** - 웹 페이지 로드 시 및 페이징 버튼 클릭 시 테이블 본문(#view)을 JSON 데이터를 기반으로 동적 재생성합니다 <br>
+- **실시간 본문 상세 보기** - 게시글 제목 클릭 시 해당 글의 본문 영역(`<tr>`)을 슬라이드 토글 방식으로 확장하여 표시합니다 <br>
+- **게시글 등록** - `FormData API`를 이용하여 텍스트 데이터와 대용량 이미지 파일을 동시에 비동기 전송합니다 <br>
+- **인라인 수정** - 별도의 이동 없이, 테이블 내부에서 즉시 수정 가능한 (`<input>`, `<textarea>`) 폼으로 동적 전환됩니다 <br>
+- **시글 삭제** - 데이터베이스 레코드 삭제 후, 리스트 가시 영역을 새로고침 없이 즉시 동기화합니다 <br>
 <br>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c320ceec-626a-4e67-a355-f8f7646bd8c0" width="90%" />
-  <br>
-   [발권정보페이지]
-</p>
-
-### 2-5. 기술적특징
-- **데이터 정합성 유지** <br>
-  - **발권 시** - `CM_SEAT`의 가용 상태와 회원데이터의 이용 상태(`memStatus`)를 동시 업데이트하여 데이터 간의 모순이 없도록 설계했습니다 <br>
-  - **반납 시** - `NOW()` 함수로 정확한 반납 시간을 기록하고, ENDTIMESTATUS 값을 통해 정상 반납 데이터를 관리합니다 <br>
-<br>
-
-- **AJAX 기반의 효율적인 UI 업데이트** <br>
-  - 발권/반납 성공 시 전체 페이지 새로고침 대신 특정 UI 섹션인 현재발권정보(`nowRview`), 발권기록 출력(`recordView`)만 선택적으로 업데이트하여 서버 자원을 절약하고 부드러운 화면 전환을 구현했습니다<br>
-<br>
-
-
-## 3. 파일 업로드 및 관리 기능 (File Upload System)
-사용자가 게시글을 등록할 때 이미지 및 첨부파일을 안전하게 서버에 저장하고 관리하기 위해 다음과 같은 로직을 구현했습니다 <br>
-<br>
-
-### 3-1. 주요 기술 스택 및 라이브러리
-- **Library** - `cos.jar` (MultipartRequest) <br>
-- **Storage** - 로컬 파일 시스템 서버 저장 방식 <br>
-  <br>
   
-### 3-2. two-way 유효성 검증
-- **Client-side** - `accept="image/*"` 속성과 `startsWith("image/")`를 통해 업로드 전 1차 필터링을 수행하여 불필요한 서버 요청을 방지했습니다 <br>
-- **Server-side** - 파일 확장자(PNG, JPG, GIF)를 대문자로 변환 후 재검증하여 비정상적인 파일 업로드를 차단했습니다 <br>
+### 3-2. 유연한 첨부파일 상태 관리 UI
+- **조건부 컴포넌트 토글** - 수정 모드 진입 시, 기존 첨부파일의 유무에 따라 [기존 파일 삭제 버튼] 또는 [신규 파일 업로드 input]이 유기적으로 토글되어 화면에 표시됩니다 <br>
+- **물리명 정제 로직** - 고유성 확보를 위해 `UUID`가 결합된 서버 측 파일명에서 문자열 파싱(`substring`, `indexOf`)을 적용하여, 사용자에게는 순수 원본 파일명만 정제하여 노출합니다 <br>
+<br>
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/5781f514-3fe0-45e8-a4ce-8cd5ce585da3" width="40%" />
+    <br>
+     [게시글수정]
+  </p>
+
+### 3-2. 션 기반 동적 UI 권한 관리
+- JSTL `<c:if>` 문을 분기하여 세션 내 유저 객체(`mvo`)가 존재할 때만 글쓰기 버튼(`goForm()`) 및 입력 양식을 활성화합니다 <br>
+- 자바스크립트 동적 UI 생성 구문 내에서 현재 로그인한 계정 아이디와 게시글 작성자의 소유권 아이디를 엄격히 비교하여, 일치하는 소유자에게만 [수정화면], [삭제] 버튼을 노출시킵니다 <br>
+<br>
 
    <br>
     <p align="center">
-      <img src="https://github.com/user-attachments/assets/6765a10d-2ab5-42b6-bc68-ec150872552c" width="80%" />
-      <br>
-       [Client-side - accept="image/*"]
+      <img src="https://github.com/user-attachments/assets/ee4869b9-f860-41e0-9f6d-9c49b7c989f0" width="80%" />
     </p>
 
   <br>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/1ad92840-7399-4ab0-b7c3-d0c7a9022e8f" width="40%" />
+    <img src="https://github.com/user-attachments/assets/8e75b958-b312-4794-81e0-636242f36c4f" width="40%" />
     <br>
-     [Client-side - startsWith("image/")]
+     [공지사항 게시판]
   </p>
   
-  <br>
-  <p align="center">
-    <img src="https://github.com/user-attachments/assets/fe7ca022-9155-4128-b31d-ea114669a5f6" width="60%" />
-    <br>
-     [Server-side]
-  </p>
-  <br>
+
+
+
 
 ### 3-3. UUID 기반 파일 고유성 확보
 - 동일한 파일명을 가진 데이터를 여러 사용자가 업로드할 경우 발생하는 데이터 덮어쓰기(Conflict) 문제를 해결하기 위해 `UUID.randomUUID()`를 적용했습니다 <br>
