@@ -63,19 +63,19 @@
 					
 					<table class="table">
 						<tr>
-							<td>제목</td>
+							<td style="text-align: center; width: 120px;">제목</td>
 							<td><input type="text" name="title" class="form-control"></td>
 						</tr>
 						<tr>
-							<td>내용</td>
+							<td style="text-align: center">내용</td>
 							<td><textarea name="content" rows="7" class="form-control"></textarea></td>
 						</tr>
 						<tr>
-							<td>첨부파일</td>
-							<td><input type="file" name="attached" accept="image/*" class="form-control"></td>
+							<td style="text-align: center">첨부파일</td>
+							<td><input type="file" id="uploadFile_img" name="attached" accept="image/*" class="form-control"></td>
 						</tr>
 						<tr>
-							<td>작성자</td>
+							<td style="text-align: center">작성자</td>
 							<td><input readonly="readonly" type="text" value="${mvo.memName}" name="writer" class="form-control"></td>
 						</tr>
 						<tr>
@@ -271,6 +271,17 @@
 		//등록하기 
 		function goInsert(){
 			var formData = new FormData($("#frm")[0]);
+			
+			var file = $("#uploadFile_img")[0].files[0];
+			
+			if (file) {         
+			        if (!file.type.startsWith("image/")) {
+			            alert("'이미지첨부'는 이미지 파일만 등록할 수 있습니다");
+			            $("#uploadFile_img").val(""); 
+			            return false; 
+			        }
+			    }
+			
 			$.ajax({
 				url : "board/new",
 				type : "post",

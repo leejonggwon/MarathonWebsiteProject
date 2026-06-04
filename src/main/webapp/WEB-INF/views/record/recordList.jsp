@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 현재 웹 애플리케이션의 루트 경로를 가져와서 cpath라는 이름의 변수에 저장 -->
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>2026 SEOUL MARATHON</title>
+<title>2026 HANKUK MARATHON</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -49,10 +50,13 @@
 				<table style="width: 100%; table-layout: fixed; border-collapse: collapse;" class= "table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th style="width: 25%; text-align: center;">참가번호</th>
-							<th style="width: 25%; text-align: center;">성명</th>
-							<th style="width: 25%; text-align: center;">완주기록</th>
-							<th style="width: 25%; text-align: center;">종목</th> 
+							<th style="width: 15%; text-align: center;">참가번호</th>
+							<th style="width: 15%; text-align: center;">성명</th>
+							<th style="width: 15%; text-align: center;">생년월일</th>
+							<th style="width: 10%; text-align: center;">성별</th>
+							<th style="width: 15%; text-align: center;">완주기록</th>
+							<th style="width: 15%; text-align: center;">종목</th> 
+							<th style="width: 15%; text-align: center;">시합일시</th> 
 				            	            
 						</tr>
 					</thead>		
@@ -61,8 +65,11 @@
 				            <tr>				                
 				                <td style="text-align: center">${vo.mrNumber}</td>  				                    			              
 				                <td style="text-align: center">${vo.mrName}</td>
+				                <td style="text-align: center"><fmt:formatDate value="${vo.mrBirth}" pattern="yyyy.MM.dd"/></td>
+				                <td style="text-align: center">${vo.mrGender}</td>
 				                <td style="text-align: center">${vo.mrRecord}</td>
 				                <td style="text-align: center">${vo.mrCourse}</td>		                	             
+				                <td style="text-align: center"><fmt:formatDate value="${vo.mrDate}" pattern="yyyy.MM.dd"/></td>		                	             
 				            </tr>
 				        </c:forEach>
 					</tbody>
