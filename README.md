@@ -1,26 +1,21 @@
 # 1. 서비스소개 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a102e35c-af0e-4c29-bc66-27cf606e0178" width="100%" />
-</p>
-
-
 ### 1-1. 서비스명
-- HanKuk University Community (한국대학교 커뮤니티) <br>
-- Spring MVC와 WebSocket을 활용한 3-Tier Architecture 기반 대학생 중심 커뮤니티 플랫폼<br>
+- Hankuk Marathon Online Platform
+- Spring MVC 아키텍처 패턴을 기반으로 설계된 '마라톤 대회 안내 및 기록 조회 플랫폼<br>
 
 <br>
 
 ### 1-2. 서비스설명
-- 본 프로젝트는 스프링(Spring) 프레임워크와 MVC 3Tier 아키텍처를 기반으로 한 커뮤니케이션 프로젝트입니다. <br>
-- 사용자 간 손쉽게 소통하고 효율적으로 커뮤니티 기능을 활용할 수 있는 웹 애플리케이션 개발을 목표로 합니다. <br>
-- 실시간 그룹 채팅, 메시지(메일), 좌석 발권, 게시판 CRUD, 댓글·답글, 검색, 페이징, 게시글 작성자 프로필, 좋아요, 조회수, 자료 검색, 회원 관리 등의 기능을 제공합니다. <br>
-- WebSocket과 비동기 통신(AJAX)을 활용한 실시간 갱신을 구현했습니다. <br>
-- Bootstrap 3과 직관적인 JSP 기반 UI를 통해 사용자 친화적인 화면을 구성했습니다. <br>
+- 본 프로젝트는 Spring MVC 아키텍처 패턴을 기반으로 설계된 '마라톤 대회 안내 및 기록 조회 플랫폼 입니다 <br>
+- Controller, Service, Mapper(Model) 계층을 분리하여 웹 애플리케이션의 유지보수성과 확장성을 높였습니다 <br>
+- FAQ, 코스 정보, 공지사항 등 전반적인 안내 기능과 개인 기록 조회 서비스를 제공하여 사용자와의 소통을 지원합니다 <br>
+- AJAX 비동기 통신 기술을 적용하여 화면 새로고침 없는 실시간 데이터 갱신을 구현함으로써 시스템 리소스를 최적화하고 사용자 편의성을 극대화했습니다 <br>
+- Bootstrap 프레임워크를 활용하여 직관적이고 일관성 있는 UI를 구축했으며, 이를 통해 사용자 친화적인 웹 환경을 구현했습니다 <br>
 <br>
 
 ### 1-3. 프로젝트기간
-- 2025.10 ~ 2025.12 <br>
-- renewal - 2026.05 <br>
+- 2025.07 ~ 2025.09 <br>
+- renewal - 2026.06 <br>
 <br>
 
 ### 1-4. 시연영상
@@ -40,12 +35,13 @@ https://www.youtube.com/watch?v=HDL472NQWXA
 
 
 # 3. System Architecture 
-
+Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플리케이션
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/60435bdd-9784-43a1-a2c1-194e88dab72d" width="50%" />
+  <img src="https://github.com/user-attachments/assets/4ee547ea-b48c-452f-90de-94a6e7d2aded" width="50%" />
   <br>
-   [3Tier System Architecture]
+   [Spring Web MVC Framework]
 </p>
+
 
 ### 1) Controller / RestController
 -  MainController <br>
