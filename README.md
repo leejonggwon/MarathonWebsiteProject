@@ -43,31 +43,6 @@ Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플�
 </p>
 
 
-### 1) Controller / RestController
--  MainController <br>
--  MemberController / MemeberRestController <br>
--  BoardController / BoardRestController <br>
--  SeatController / SeatRestController <br>
--  ChatController <br>
--  ommentRestController <br>
--  LikeRestController <br>
-
-### 2) Service / ServiceImpl
-- MemberService / MemberServiceImpl <br>
-- BoardService / BoardServiceImpl <br>
-- SeatService / SeatServiceImpl <br>
-- CommentService / CommentServiceImpl <br>
-- LikeService / LikeServiceImpl <br>
-
-### 3) Mapper / mapper.xml
-- MemberMapper / MemberMapper.xml <br>
-- BoardMapper / BoardMapper.xml <br>
-- SeatMapper / SeatMapper.xml <br>
-- CommentMapper /CommentMapper.xml <br>
-- LikeMapper /LikeMapper.xml <br>
-<br>
-
-
 # 4. DataBase E-R Diagram
 <p align="center">
   <img src="https://github.com/user-attachments/assets/faa1f333-29c0-4f39-b495-8a8e97427c45" width=100% />
@@ -76,7 +51,6 @@ Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플�
 </p>
 <br>
 
- 
 
 
 # 5. 기능구조도
@@ -90,83 +64,66 @@ Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플�
 
 
 
-# 6. 핵심기능설명
+# 6. 페이지별 핵심기능가이드
 
 <br>
 
-## 1. 메시지 시스템(Message System)
-사용자 간 원활한 소통과 실시간 알림을 제공하기 위한 통합 메시징 서비스입니다 <br>
+## 1. 비동기 파일 업로드 시스템 (Asynchronous File Upload)
+JSP Form 데이터와 이미지 파일을 jQuery FormData를 통해 비동기(AJAX)로 전송하고, 서버 측에서 Cos 라이브러리의 `MultipartRequest` 및 UUID를 활용하여 안전하게 파일을 서버 디렉토리에 저장하는 업로드 시스템입니다 <br>
 
 <br>
 
-### 1-1. 실시간 메시지 알림
-- AJAX를 활용하여 페이지 새로고침 없이 상단 헤더의 배지(Badge)를 통해 신규 메시지 수신 여부를 실시간으로 시각화했습니다 <br>
-
+### 1-1. 시스템 구성 및 흐름
+   **1. 클라이언트 (JSP/HTML)** - `enctype="multipart/form-data"` 속성을 가진 <Form> 태그 구성 및 파일 선택 <br>
+   **2. 비동기 요청 (JavaScript/AJAX)** - 자바스크립트 `FormData` 객체를 생성하여 멀티파트 데이터를 직렬화 없이 서버로 비동기 전송 <br>
+   **3. 서버 파싱 (Controller)** - `MultipartRequest`를 이용하여 대용량 파일 저장 경로 및 최대 크기를 지정하고, 파일과 텍스트 파라미터를 분리 파싱 <br>
+   **4. 고유 파일명 생성 (File Rename)** - 중복 방지를 위해 `UUID`를 생성하고, 기존 파일명과 결합하여 고유한 파일명으로 서버 디렉토리에 최종 저장 <br>
+   **5. 정적 리소스 매핑 (Spring Web MVC)** - 업로드된 외부 디렉토리 경로를 웹 가상 경로로 매핑하여 클라이언트가 접근할 수 있도록 설정 <br>
 <br>
+
+### 1-2. 주요 구현 특징
+- **FormData 기반의 Asynchronous 전송** <br>
+  - 전체 페이지 새로고침없이 데이터를 전송하기 위해, 자바스크립트 내장 객체인 `FormData`를 활용하여 폼 데이터를 캡슐화합니다 <br>
+  - AJAX 요청 시 `processData: false` 및 `contentType: false` 설정을 필수적으로 적용하여, 브라우저가 데이터를 쿼리 스트링으로 변환하거나 잘못된 Content-Type 헤더를 설정하는 것을 방지합니다 <br>
+<br>
+
+- **UUID 기반의 파일명 중복 방지 및 보안 강화** <br>
+  - 동일한 파일명을 가진 사용자가 업로드할 경우 발생할 수 있는 파일 덮어쓰기 문제를 해결하기 위해 `UUID.randomUUID()`를 활용합니다 <br>
+  - `DefaultFileRenamePolicy`로 1차 처리된 파일에 고유 서명(UUID)을 결합하여, 서버 물리 경로에 저장함으로써 데이터 무결성을 보장합니다 <br>
+<br>
+
+- **서버 디렉토리 자동 생성 기능** <br>
+  - 서버 구동 중 해당 업로드 경로가 존재하지 않을 경우를 대비하여, `File.exists()` 검증을 거쳐 `mkdirs()` 메서드로 필요한 상위 디렉토리까지 안전하게 자동 생성하도록 예외 처리를 강화했습니다 <br>
+<br>
+
+- **외부 저장소 정적 웹 리소스 매핑** <br>
+  - 웹 애플리케이션 내부(WAR)에 파일을 저장할 경우 재배포 시 파일이 삭제되는 문제를 방지하기 위해 외부 로컬 디렉토리를 지정했습니다 <br>
+  - `servlet-context.xml` 설정을 통해 외부 물리 경로를 가상 웹 경로로 매핑함으로써, 보안을 유지하면서도 클라이언트 화면에 이미지를 정상적으로 렌더링할 수 있도록 지원합니다.<br>
+<br>
+
+- **프론트엔드 파일 유효성 검사 (MIME Type Validation)** <br>
+  - `File.type` API를 활용하여 선택된 파일의 MIME 타입을 검사하고, 이미지 계열(image/jpeg, image/png 등)이 아닐 경우 업로드를 즉시 차단합니다 <br>
+  - 유효하지 않은 파일일 경우 alert 안내를 띄운 후, 파일 입력 창 값을 비워 초기화하고 `return false`로 폼 제출(Submit) 프로세스를 중단시킵니다 <br>
+  - 이 처리를 통해 서버의 무리한 파싱 작업을 줄이고 불필요한 네트워크 트래픽을 방지하여 애플리케이션의 안정성을 높였습니다 <br>
+<br>
+
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/80a1e767-df31-4f85-a11d-06027831df2e" width="90%" />
+  <img src="https://github.com/user-attachments/assets/5f0a5cfd-a656-4da5-8635-2e17d3612e14" width="80%" />
   <br>
-   [실시간 메시지 알림]
-</p>
-<br>
-
-### 1-2. 메시지함 관리
-- **받은 메세지함** -  페이징 처리 및 발신자/제목 기반의 동적 검색 기능을 제공하여 편의성을 높였습니다 <br>
-- **보낸 메시지함** -  내가 보낸 메시지의 이력을 관리하며, 상대방의 수신 여부(`ReadStatus`)를 실시간으로 확인할 수 있습니다 <br>
-<br>  
-
-
-### 1-3. 기술적특징
-- **상태 세분화 설계를 통한 UX 최적화** <br>
-  - `readStatus` - 개별 메시지의 읽음/미열람 상태를 관리하여 사용자가 읽은 메시지를 구분할 수 있게 합니다 <br>
-  - `arriveStatus` - 시지 목록 진입 시 알림 배지를 초기화하는 상태 값으로, '알림 확인'과 '내용 읽기'를 분리하여 정교한 UX를 구현했습니다 <br>
-<br>
-
-- **논리적 삭제 (Soft Delete) 적용** <br>
-  - `delToID`, `delFromID` 컬럼을 개별적으로 활용하여, 데이터베이스에서 레코드를 물리적으로 지우지 않고 상태값만 변경합니다 <br>
-  - 이를 통해 발신자와 수신자 중 한쪽이 메시지를 삭제하더라도 상대방의 메시지함 데이터는 보존되는 실무적인 삭제 방식을 채택했습니다 <br>
-<br>
-
-- **안전한 파일 업로드 및 스트리밍 다운로드** <br>
-  - **파일명 보안** - `UUID`를 적용하여 파일명 중복을 방지하고 보안성을 강화했습니다 <br>
-  - **서버측 처리** - `MultipartRequest`를 통해 파일을 서버에 저장하고, 다운로드 시 `ResponseEntity<Resource>`와 `StandardCharsets` 인코딩을 사용하여 한글 깨짐 없는 안정적인 파일 스트리밍을 구현했습니다 <br>
-<br>
-
-- **사용자 중심의 일괄 처리 및 데이터 처리** <br>
-  - **체크박스 기반 다중 선택** - 각 행의 메시지 고유 번호(`msgIdx`)를 체크박스에 매핑하여 사용자가 여러 항목을 직관적으로 선택할 수 있도록 구현했습니다 <br>
-  - **동적 폼 데이터 바인딩** - JavaScript(jQuery)를 활용해 선택된 값을 배열로 수집하고, 기존 전송 폼(`pageFrm`)에 `hidden` 태그로 동적 삽입하여 단 한 번의 요청으로 일괄 처리가 가능하도록 설계했습니다 <br>
-
-<br>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5a8e1d7e-54df-40c1-8e0d-08d821b4bafa" width="90%" />
-  <br>
-   [받은 메세지함]
-</p>
-<br>
-<br>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5215b375-f466-46f1-956f-1e71bd347c6f" width="90%" />
-  <br>
-   [보낸 메세지함]
+   [파일업로드 기능]
 </p>
 <br>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/359754eb-e094-4462-b616-7b6a97ff22a9" width="90%" />
+  <img src="https://github.com/user-attachments/assets/8e3c01da-994e-4388-98cc-77791b0c03c5" width="80%" />
   <br>
-   [메세지 작성]
+   [파일업로드 기능]
 </p>
 <br>
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c242ed0f-06ea-46bc-9b98-b1fd74183e0d" width="90%" />
-  <br>
-   [메시지 상세 보기]
-</p>
-<br>
+
+
 
 
 ## 2. 좌석 발권 및 관리 시스템 (Seat Reservation System)
