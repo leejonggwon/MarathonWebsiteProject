@@ -1,7 +1,7 @@
 # 1. 서비스소개 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/79156a85-c85a-4486-8291-2b55ccd44b4e" width="80%" />
+  <img src="https://github.com/user-attachments/assets/79156a85-c85a-4486-8291-2b55ccd44b4e" width="60%" />
 </p>
 
 
@@ -42,7 +42,7 @@ https://www.youtube.com/watch?v=HDL472NQWXA
 # 3. System Architecture 
 Spring MVC 구조를 적용하여 비즈니스 로직과 프레젠테이션 계층을 명확히 분리하고, MyBatis Mapper 인터페이스를 활용해 생산성과 유지보수성을 높인 웹 애플리케이션을 개발했습니다
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4ee547ea-b48c-452f-90de-94a6e7d2aded" width="50%" />
+  <img src="https://github.com/user-attachments/assets/4ee547ea-b48c-452f-90de-94a6e7d2aded" width="60%" />
   <br>
    [Spring Web MVC Framework]
 </p>
@@ -50,7 +50,7 @@ Spring MVC 구조를 적용하여 비즈니스 로직과 프레젠테이션 계�
 
 # 4. DataBase E-R Diagram
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/faa1f333-29c0-4f39-b495-8a8e97427c45" width=50% />
+  <img src="https://github.com/user-attachments/assets/faa1f333-29c0-4f39-b495-8a8e97427c45" width=60% />
   <br>
   [E-R Diagram]
 </p>
@@ -58,7 +58,7 @@ Spring MVC 구조를 적용하여 비즈니스 로직과 프레젠테이션 계�
 
 # 5. 기능구조도
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6f24b3d8-b193-43e0-9720-eaed34f23e1f" width=50% />
+  <img src="https://github.com/user-attachments/assets/6f24b3d8-b193-43e0-9720-eaed34f23e1f" width=60% />
   <br>
   [기능구조도]
 </p>
