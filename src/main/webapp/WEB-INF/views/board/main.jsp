@@ -12,7 +12,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/css/btnStyle.css">
+
+<style>
+/* 1. 게시글 제목 링크를 누를 때 검은 테두리 제거 */
+	#view a:focus,
+	#view a:active,
+	#view a:hover {
+		outline: none !important;
+		text-decoration: none; /* 누를 때 밑줄 생기는 것도 방지 */
+	}
+
+	/* 2. 하단 페이징 번호(◀ 1 2 ▶)를 누를 때 검은 테두리 제거 */
+	.pagination > li > a:focus,
+	.pagination > li > a:active {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+
+	/* 3. 닫기, 수정화면, 삭제 등 모든 버튼을 누를 때 검은 테두리 제거 */
+	.btn:focus,
+	.btn:active,
+	.btn:focus:active {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+</style>
 </head>
+
 <body> 
 	<div class="container">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include> <!--공통헤더-->	

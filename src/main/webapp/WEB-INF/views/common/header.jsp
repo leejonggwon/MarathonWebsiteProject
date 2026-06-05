@@ -11,6 +11,20 @@
 <meta charset="UTF-8">
 <title>2026 HANKUK MARATHON</title>
 </head>
+<style>
+
+/*검정색 띠같은 ouline속성제거*/
+.nav-tabs > li > a:focus, 
+.nav-tabs > li > a:active,
+.navbar-nav > li > a:focus,
+.navbar-nav > li > a:active,
+.navbar-brand:focus,
+.navbar-brand:active {
+    outline: none !important;
+    box-shadow: none !important; /* 혹시 모를 부트스트랩 그림자 효과도 함께 제거 */
+}
+
+</style>
 <body>
 	<!-- 메뉴바 -->
 	<nav class="navbar navbar-default">

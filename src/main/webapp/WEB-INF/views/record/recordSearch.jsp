@@ -18,6 +18,18 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	
 <link rel="stylesheet" href="${contextPath}/resources/css/btnStyle.css">
+<style>
+
+.btn:focus,
+.btn:active,
+.btn:focus:active {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+</style>
+
+
 </head>
 <body> 
 	<div class="container">

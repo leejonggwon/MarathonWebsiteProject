@@ -13,6 +13,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/css/btnStyle.css">
+<style>
+
+.btn:focus,
+.btn:active,
+.btn:focus:active {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+</style>
 </head>
 <body>
 	
@@ -24,26 +34,12 @@
 			<div class="panel-body">
 			
 			<form action="${contextPath}/update.do" method="post"> <!-- controller위치는 views 바로 아래에 있다 -->
-				<input type="hidden" name="memPassword" id="memPassword" value="" > 
-				<input type="hidden" name="memID" id="memID" value="${mvo.memID}" > 
-				<%-- 회원정보 수정할때 이미지가 날아가는것 방지하는 두번째 방법 --%>
-				<%-- <input type="hidden" name="memProfile" id="memProfile" value="${mvo.memProfile}" >  --%>
-				
+				<input type="hidden" name="memID" id="memID" value="${mvo.memID}" > 				
 				<table style="text-align: center; border: 1px solid #dddddd" class ="table table-borderd">
 					<tr>
 						<td style="width: 110px; vertical-align: middle;">아이디</td>
 						<td>${mvo.memID}</td>								
-					</tr>
-					<tr>
-						<td style="width: 110px; vertical-align: middle;">비밀번호</td>
-						<td colspan ="2"><input required="required" type="password" onkeyup="passwordCheck()" name="memPassword1" id="memPassword1" class="form-control" maxlength="20" placeholder="비밀번호를 입력하세요"></td>					
-						<!-- onkeyup: 키보드에서 손을 뗄 때 발생하는 이벤트 -->
-						<!-- required="required" 유효성검사속성, 반드시 입력해야한다 라는 제약을 걸어주는 속성 -->
-					</tr>
-					<tr>
-						<td style="width: 110px; vertical-align: middle;">비밀번호확인</td>
-						<td colspan ="2"><input type="password" onkeyup="passwordCheck()" name="memPassword2" id="memPassword2" class="form-control" maxlength="20" placeholder="비밀번호를 확인하세요"></td>					
-					</tr>
+					</tr>				
 					<tr>
 						<td style="width: 110px; vertical-align: middle;">사용자이름</td>
 						<td colspan ="2"><input value="${mvo.memName}" required="required" type="text" name="memName" id="memName" class="form-control" maxlength="20" placeholder="이름을 입력하세요"></td>				
@@ -70,7 +66,7 @@
 								<c:if test="${mvo.memGender eq '여자'}">
 									<label class="btn btn-default">
 										<input type="radio" id="memGender" name="memGender" autocomplete="off" value="남자"> 남자
-									</label>
+									</label> 
 									<label class="btn btn-default active">
 										<input type="radio" id="memGender" name="memGender" autocomplete="off" value="여자" checked="checked"> 여자
 									</label>
@@ -85,14 +81,43 @@
 						<td colspan ="2"><input value="${mvo.memEmail}" type="email" name="memEmail" id="memEmail" class="form-control" maxlength="50" placeholder="이메일을 입력하세요"></td>				
 					</tr>
 					<tr>
-						<td colspan ="3">
-							<span id="passMessage" ></span> <!-- 비밀번호 일치 여부 메시지 표시-->
+						<td colspan ="3">							
 							<input type="submit" class="btn btn-custom btn pull-right" value="회원정보수정">					
 						</td>
 					</tr>
 					
 				</table>
 			</form>
+				
+			<!-- 비밀번호 -->
+			<form action="${contextPath}/passwordUpdate.do" method="post"> <!-- controller위치는 views 바로 아래에 있다 -->
+				<input type="hidden" name="memPassword" id="memPassword" value="" > 
+				<input type="hidden" name="memID" id="memID" value="${mvo.memID}" > 
+						
+				<table style="text-align: center; border: 1px solid #dddddd" class ="table table-borderd">					
+					<tr>
+						<td style="width: 110px; vertical-align: middle;">비밀번호</td>
+						<td colspan ="2"><input required="required" type="password" onkeyup="passwordCheck()" name="memPassword1" id="memPassword1" class="form-control" maxlength="20" placeholder="비밀번호를 입력하세요"></td>					
+						<!-- onkeyup: 키보드에서 손을 뗄 때 발생하는 이벤트 -->
+						<!-- required="required" 유효성검사속성, 반드시 입력해야한다 라는 제약을 걸어주는 속성 -->
+					</tr>
+					<tr>
+						<td style="width: 110px; vertical-align: middle;">비밀번호확인</td>
+						<td colspan ="2"><input type="password" onkeyup="passwordCheck()" name="memPassword2" id="memPassword2" class="form-control" maxlength="20" placeholder="비밀번호를 확인하세요"></td>					
+					</tr>
+													
+					<tr>
+						<td colspan ="3">
+							<span id="passMessage" ></span> <!-- 비밀번호 일치 여부 메시지 표시-->
+							<input type="submit" class="btn btn-custom btn pull-right" value="비밀번호변경">					
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+				
+				
+				
 			</div>
 			<jsp:include page="/WEB-INF/views/common/bottom.jsp"></jsp:include>
 		</div>

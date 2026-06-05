@@ -22,7 +22,14 @@
 	<!-- 업데이트: resultType 없지만 성공하면 1 실패하면 0을 반환한다 -->
 	<update id="update" parameterType="kr.spring.entity.Member">
     	UPDATE MR_MEMBER
-   		SET MEMPASSWORD = #{memPassword}, MEMNAME = #{memName}, MEMAGE = #{memAge}, MEMGENDER = #{memGender}, MEMEMAIL = #{memEmail}, MEMPROFILE = #{memProfile}
+   		SET MEMNAME = #{memName}, MEMAGE = #{memAge}, MEMGENDER = #{memGender}, MEMEMAIL = #{memEmail}, MEMPROFILE = #{memProfile}
+   		WHERE MEMID = #{memID}
+	</update>
+	
+	<!-- 업데이트: resultType 없지만 성공하면 1 실패하면 0을 반환한다 -->
+	<update id="passwordUpdate" parameterType="kr.spring.entity.Member">
+    	UPDATE MR_MEMBER
+   		SET MEMPASSWORD = #{memPassword}
    		WHERE MEMID = #{memID}
 	</update>
 	

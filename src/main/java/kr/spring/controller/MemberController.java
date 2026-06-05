@@ -148,7 +148,7 @@ public class MemberController {
 	@RequestMapping("/update.do")
 	public String update(Member m, RedirectAttributes rttr, HttpSession session) {
 		//유효성검사 
-		if(m.getMemPassword() == null || m.getMemPassword().equals("") ||
+		if(
 		   m.getMemName() == null || m.getMemName().equals("") ||
 		   m.getMemAge() == 0 ||
 		   m.getMemEmail() == null || m.getMemEmail().equals("") 
@@ -179,6 +179,42 @@ public class MemberController {
 			}
 		}
 	}
+	
+	
+	//비밀번호업데이트
+	@RequestMapping("/passwordUpdate.do")
+	public String passwordUpdate(Member m, RedirectAttributes rttr, HttpSession session) {
+		//유효성검사 
+		if(m.getMemPassword() == null || m.getMemPassword().equals("") 
+		   
+		  ) {
+			rttr.addFlashAttribute("msgType", "실패메세지"); 
+			rttr.addFlashAttribute("msg", "모든 내용을 입력하세요");
+			
+			return "redirect:/updateForm.do"; //다시 회원가입 입력하는 폼으로 다시 요청하도록 시킨다
+			
+		}else{
+
+			int cnt = mapper.passwordUpdate(m); 
+			
+			if(cnt == 1) {
+				System.out.println("비밀번호수정 성공");
+				rttr.addFlashAttribute("msgType", "성공메세지"); 
+				rttr.addFlashAttribute("msg", "비밀번호수정에 성공했습니다");
+				session.invalidate(); //세션만료
+				return "redirect:/";		
+			}else {
+				System.out.println("비밀번호수정 실패");
+				rttr.addFlashAttribute("msgType", "실패메세지"); 
+				rttr.addFlashAttribute("msg", "비밀번호수정에 실패했습니다");
+				return "redirect:/updateForm.do";
+			}
+		}
+	}
+	
+	
+	
+	
 	
 	//회원사진등록 페이지 이동
 	@RequestMapping("/imageForm.do")

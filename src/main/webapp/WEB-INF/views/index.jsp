@@ -23,6 +23,12 @@
   width: 94%;   
   margin: 25px 10px 30px 5px;
 }
+
+/*검정색 띠같은 ouline속성제거*/
+.nav-tabs > li > a:focus, 
+.nav-tabs > li > a:active {
+	outline: none !important;
+}
 </style>
 <body>
 	<div class="container">

@@ -24,6 +24,9 @@ public interface MemberMapper {
 
 	//업데이트
 	public int update(Member m);
+	
+	//비밀번호 업데이트
+	public int passwordUpdate(Member m);
 
 	//회원 이미지 등록기능 
 	public void profileUpdate(Member mvo);

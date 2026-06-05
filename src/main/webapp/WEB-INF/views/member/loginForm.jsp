@@ -13,6 +13,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/css/btnStyle.css">
+<style>
+
+.btn:focus,
+.btn:active,
+.btn:focus:active {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+</style>
 </head>
 <body>
 	
@@ -75,9 +85,7 @@
 		$(document).ready(function(){
 			if(${not empty msgType}){ //EL식
 				if(${msgType eq "실패메세지"}){ //EL식
-					$("#messageType").attr("class", "modal-content panel-warning");
-				}else{
-					$("#messageType").attr("class", "modal-content panel-success");
+					$("#messageType").attr("class", "modal-content panel-danger");
 				}
 			$("#myMessage").modal("show"); //모달창 실행
 			}
