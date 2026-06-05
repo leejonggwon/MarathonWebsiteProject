@@ -244,7 +244,8 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
    **4. 블록 계산 (PageMaker)** <br>
    &nbsp; 총 게시글 수를 기반으로 하단에 표시할 시작 페이지, 마지막 페이지, 이전/다음 버튼 활성화 여부를 계산합니다 <br>
    **5. JSON 응답 및 동적 렌더링** <br>
-   &nbsp; 서버가 글 목록(`list`)과 페이징 데이터(`pageMaker`)를 `Map`에 담아 JSON으로 리턴하면, jQuery가 이를 파싱하여 화면 테이블과 pagination UI를 동적으로 다시 그립니다 <br>
+   &nbsp; 서버가 글 목록(`list`)과 페이징 데이터(`pageMaker`)를 `Map`에 담아 JSON으로 리턴하면, <br>
+   &nbsp; jQuery가 이를 파싱하여 화면 테이블과 pagination UI를 동적으로 다시 그립니다 <br>
 <br>
 
 
@@ -282,7 +283,8 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
    **3. 모델 적재 및 포워딩 (Controller)** <br>
    &nbsp; 페이징 계산기(`PageMaker`) 데이터와 레코드 리스트(`list`)를 `Model` 객체에 바인딩하여 결과 화면으로 포워딩합니다 <br>
    **4. 상태 유지 및 페이징 제어 (JavaScript/jQuery)** <br>
-   &nbsp; 색어와 페이지 번호가 유실되지 않도록 하단 내비게이션 클릭 시 가상 폼(#pageFrm)에 페이지 번호를 주입하고, 기존 검색 조건(type, keyword)을 결합하여 서버로 재전송합니다<br>
+   &nbsp; 색어와 페이지 번호가 유실되지 않도록 하단 내비게이션 클릭 시 가상 폼(#pageFrm)에 페이지 번호를 주입하고, <br>
+   &nbsp; 기존 검색 조건(type, keyword)을 결합하여 서버로 재전송합니다<br>
   
 <br>
 
