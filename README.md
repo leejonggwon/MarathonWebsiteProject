@@ -197,11 +197,16 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
 <br>
 
 ### 3-1. 시스템 구성 및 흐름 
-   **클라이언트 (JSP/HTML)** - `enctype="multipart/form-data"` 속성을 가진 `<Form>` 태그 구성 및 파일 선택 <br>
-   **→ 비동기 요청 (JavaScript/AJAX)** - 자바스크립트 `FormData` 객체를 생성하여 멀티파트 데이터를 직렬화 없이 서버로 비동기 전송 <br>
-   **→ 서버 파싱 (Controller)** - `MultipartRequest`를 이용하여 대용량 파일 저장 경로 및 최대 크기를 지정하고, 파일과 텍스트 파라미터를 분리 파싱 <br>
-   **→ 고유 파일명 생성 (File Rename)** - 중복 방지를 위해 `UUID`를 생성하고, 기존 파일명과 결합하여 고유한 파일명으로 서버 디렉토리에 최종 저장 <br>
-   **→ 정적 리소스 매핑 (Spring Web MVC)** - 업로드된 외부 디렉토리 경로를 웹 가상 경로로 매핑하여 클라이언트가 접근할 수 있도록 설정 <br>
+   **1. 클라이언트 (JSP/HTML)** <br> 
+   `enctype="multipart/form-data"` 속성을 가진 `<Form>` 태그 구성 및 파일 선택 <br>
+   **2. 비동기 요청 (JavaScript/AJAX)** <br>
+   자바스크립트 `FormData` 객체를 생성하여 멀티파트 데이터를 직렬화 없이 서버로 비동기 전송 <br>
+   **3. 서버 파싱 (Controller)** <br>
+   `MultipartRequest`를 이용하여 대용량 파일 저장 경로 및 최대 크기를 지정하고, 파일과 텍스트 파라미터를 분리 파싱 <br>
+   **4. 고유 파일명 생성 (File Rename)** <br>
+   중복 방지를 위해 `UUID`를 생성하고, 기존 파일명과 결합하여 고유한 파일명으로 서버 디렉토리에 최종 저장 <br>
+   **5. 정적 리소스 매핑 (Spring Web MVC)** <br>
+   업로드된 외부 디렉토리 경로를 웹 가상 경로로 매핑하여 클라이언트가 접근할 수 있도록 설정 <br>
 <br>
 
 ### 3-2. 주요 구현 특징
