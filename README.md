@@ -1,4 +1,10 @@
 # 1. 서비스소개 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/79156a85-c85a-4486-8291-2b55ccd44b4e" width="80%" />
+</p>
+
+
 ### 1-1. 서비스명
 - Hankuk Marathon Web Platform
 - Spring MVC 아키텍처 패턴을 기반으로 설계된 '마라톤대회 안내 및 기록조회 플랫폼'<br>
