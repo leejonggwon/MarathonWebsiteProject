@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=HDL472NQWXA
 
 
 # 3. System Architecture 
-Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플리케이션
+Spring MVC 구조를 적용하여 비즈니스 로직과 프레젠테이션 계층을 명확히 분리하고, MyBatis Mapper 인터페이스를 활용해 생산성과 유지보수성을 높인 웹 애플리케이션을 개발했습니다
 <p align="center">
   <img src="https://github.com/user-attachments/assets/4ee547ea-b48c-452f-90de-94a6e7d2aded" width="50%" />
   <br>
