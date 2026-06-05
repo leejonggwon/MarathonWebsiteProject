@@ -165,12 +165,12 @@ Bootstrap 3 UI 프레임워크와 jQuery 비동기 통신(AJAX)을 활용하여 
 <br>
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/5781f514-3fe0-45e8-a4ce-8cd5ce585da3" width="40%" />
+    <img src="https://github.com/user-attachments/assets/5781f514-3fe0-45e8-a4ce-8cd5ce585da3" width="80%" />
     <br>
      [게시글수정]
   </p>
 
-### 2-2. 션 기반 동적 UI 권한 관리
+### 2-3. 세션 기반 동적 UI 권한 관리
 - JSTL `<c:if>` 문을 분기하여 세션 내 유저 객체(`mvo`)가 존재할 때만 글쓰기 버튼(`goForm()`) 및 입력 양식을 활성화합니다 <br>
 - 자바스크립트 동적 UI 생성 구문 내에서 현재 로그인한 계정 아이디와 게시글 작성자의 소유권 아이디를 엄격히 비교하여, 일치하는 소유자에게만 [수정화면], [삭제] 버튼을 노출시킵니다 <br>
 <br>
@@ -179,44 +179,12 @@ Bootstrap 3 UI 프레임워크와 jQuery 비동기 통신(AJAX)을 활용하여 
     <p align="center">
       <img src="https://github.com/user-attachments/assets/ee4869b9-f860-41e0-9f6d-9c49b7c989f0" width="80%" />
     </p>
-
-  <br>
-  <p align="center">
-    <img src="https://github.com/user-attachments/assets/8e75b958-b312-4794-81e0-636242f36c4f" width="40%" />
-    <br>
-     [공지사항 게시판]
-  </p>
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/8e75b958-b312-4794-81e0-636242f36c4f" width="80%" />
+      <br>
+       [공지사항 게시판]
+    </p>
   
-### 2-3. UUID 기반 파일 고유성 확보
-- 동일한 파일명을 가진 데이터를 여러 사용자가 업로드할 경우 발생하는 데이터 덮어쓰기(Conflict) 문제를 해결하기 위해 `UUID.randomUUID()`를 적용했습니다 <br>
-- **저장 구조** - UUID_원본파일명 형태로 저장하여 DB와 물리적 파일 간의 매핑을 안전하게 관리합니다 <br>
-  <br>
-
-### 2-4. 데이터 정합성 유지 및 효율적 수정 로직
-- 파일이 새로 첨부되지 않으면` hidden`으로 넘겨받은 `originImgpath`를 유지하여 데이터 소실을 방지합니다. <br>
-- 프로필 이미지 변경 시 File.delete()를 호출하여 서버 내 불필요한 구버전 파일을 물리적으로 삭제, 스토리지 용량을 효율적으로 관리합니다 <br>
-  <br>    
-  
-### 2-5. 동적 디렉토리 생성
-- 파일 저장 경로가 존재하지 않을 경우 `targetDir.exists()` 체크 후 `mkdirs()`를 통해 실행 시점에 디렉토리를 자동 생성하여 런타임 에러를 예방했습니다 <br>
-<br>
- <p align="center">
-    <img src="https://github.com/user-attachments/assets/1144f5a9-02e5-4b5a-8aad-8024d60540de" width="90%" />
-    <br>
-     [커뮤니티 - 첨부파일 업로드]
-  </p>
-
-<br>
- <p align="center">
-    <img src="https://github.com/user-attachments/assets/6006a158-bdcd-4f9b-b7fb-2635a1a65ece" width="90%" />
-    <br>
-     [회원정보수정 - 프로필이미지 업로드]
-  </p>
-
-<br>
-
-
-
 
 ## 3. 비동기 파일 업로드 시스템 (Asynchronous File Upload)
 JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)로 전송하고, 서버 측에서 `Cos` 라이브러리의 `MultipartRequest` 및 `UUID`를 활용하여 안전하게 파일을 서버 디렉토리에 저장하는 업로드 시스템입니다 <br>
@@ -255,7 +223,6 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
   - 유효하지 않은 파일일 경우 alert 안내를 띄운 후, 파일 입력 창 값을 비워 초기화하고 `return false`로 폼 제출(Submit) 프로세스를 중단시킵니다 <br>
   - 이 처리를 통해 서버의 무리한 파싱 작업을 줄이고 불필요한 네트워크 트래픽을 방지하여 애플리케이션의 안정성을 높였습니다 <br>
 <br>
-
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5f0a5cfd-a656-4da5-8635-2e17d3612e14" width="80%" />
