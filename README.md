@@ -137,14 +137,6 @@ JSP 템플릿 엔진과 Bootstrap 3, 그리고 jQuery 동적 이벤트를 활용
 <br>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a68af6cc-7944-407a-9a51-3f451d2dbc76" width="80%" />
-  <br>
-   [랜딩페이지 - 코스안내]
-</p>
-<br>
-<br>
-
-<p align="center">
   <img src="https://github.com/user-attachments/assets/b29b71dc-84b7-4cd7-95c4-ed3ddb73532e" width="80%" />
   <br>
    [랜딩페이지 - 로그인 모달창]
