@@ -231,14 +231,6 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
 </p>
 <br>
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f36c615f-a631-4b12-8591-273ad5cd9698" width="80%" />
-  <br>
-   [파일업로드 기능]
-</p>
-<br>
-
-
 
 ## 4. 비동기 RESTful 페이징 시스템 (Asynchronous Pagination System)
 사용자가 요청한 페이지 번호에 맞춰 필요한 범위의 데이터만 DB에서 조회(Offset 기반 페이징)하고, 하단 페이지 블록을 동적으로 계산하여 화면 리로드 없이 페이징을 수행하는 고성능 비동기 시스템입니다 <br>
