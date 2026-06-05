@@ -196,7 +196,7 @@ Bootstrap 3 UI 프레임워크와 jQuery 비동기 통신(AJAX)을 활용하여 
 JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)로 전송하고, 서버 측에서 `Cos` 라이브러리의 `MultipartRequest` 및 `UUID`를 활용하여 안전하게 파일을 서버 디렉토리에 저장하는 업로드 시스템입니다 <br>
 <br>
 
-### 3-1. 시스템 구성 및 흐름
+### 3-1. 시스템 구성 및 흐름 <br>
    **1. 클라이언트 (JSP/HTML)** - `enctype="multipart/form-data"` 속성을 가진 <Form> 태그 구성 및 파일 선택 <br>
    **2. 비동기 요청 (JavaScript/AJAX)** - 자바스크립트 `FormData` 객체를 생성하여 멀티파트 데이터를 직렬화 없이 서버로 비동기 전송 <br>
    **3. 서버 파싱 (Controller)** - `MultipartRequest`를 이용하여 대용량 파일 저장 경로 및 최대 크기를 지정하고, 파일과 텍스트 파라미터를 분리 파싱 <br>
