@@ -229,7 +229,7 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
   - `File.type` API를 활용하여 선택된 파일의 MIME 타입을 검사하고, 이미지 계열(image/jpeg, image/png 등)이 아닐 경우 업로드를 즉시 차단합니다 <br>
   - 유효하지 않은 파일일 경우 alert 안내를 띄운 후, 파일 입력 창 값을 비워 초기화하고 `return false`로 폼 제출(Submit) 프로세스를 중단시킵니다 <br>
   - 이 처리를 통해 서버의 무리한 파싱 작업을 줄이고 불필요한 네트워크 트래픽을 방지하여 애플리케이션의 안정성을 높였습니다 <br>
-
+<br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5f0a5cfd-a656-4da5-8635-2e17d3612e14" width="80%" />
   <br>
