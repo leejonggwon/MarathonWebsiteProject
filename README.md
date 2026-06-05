@@ -213,27 +213,22 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
 - **FormData 기반의 Asynchronous 전송** <br>
   - 전체 페이지 새로고침없이 데이터를 전송하기 위해, 자바스크립트 내장 객체인 `FormData`를 활용하여 폼 데이터를 캡슐화합니다 <br>
   - AJAX 요청 시 `processData: false` 및 `contentType: false` 설정을 필수적으로 적용하여, 브라우저가 데이터를 쿼리 스트링으로 변환하거나 잘못된 Content-Type 헤더를 설정하는 것을 방지합니다 <br>
-<br>
 
 - **UUID 기반의 파일명 중복 방지 및 보안 강화** <br>
   - 동일한 파일명을 가진 사용자가 업로드할 경우 발생할 수 있는 파일 덮어쓰기 문제를 해결하기 위해 `UUID.randomUUID()`를 활용합니다 <br>
   - `DefaultFileRenamePolicy`로 1차 처리된 파일에 고유 서명(UUID)을 결합하여, 서버 물리 경로에 저장함으로써 데이터 무결성을 보장합니다 <br>
-<br>
 
 - **서버 디렉토리 자동 생성 기능** <br>
   - 서버 구동 중 해당 업로드 경로가 존재하지 않을 경우를 대비하여, `File.exists()` 검증을 거쳐 `mkdirs()` 메서드로 필요한 상위 디렉토리까지 안전하게 자동 생성하도록 예외 처리를 강화했습니다 <br>
-<br>
 
 - **외부 저장소 정적 웹 리소스 매핑** <br>
   - 웹 애플리케이션 내부(WAR)에 파일을 저장할 경우 재배포 시 파일이 삭제되는 문제를 방지하기 위해 외부 로컬 디렉토리를 지정했습니다 <br>
   - `servlet-context.xml` 설정을 통해 외부 물리 경로를 가상 웹 경로로 매핑함으로써, 보안을 유지하면서도 클라이언트 화면에 이미지를 정상적으로 렌더링할 수 있도록 지원합니다.<br>
-<br>
 
 - **프론트엔드 파일 유효성 검사 (MIME Type Validation)** <br>
   - `File.type` API를 활용하여 선택된 파일의 MIME 타입을 검사하고, 이미지 계열(image/jpeg, image/png 등)이 아닐 경우 업로드를 즉시 차단합니다 <br>
   - 유효하지 않은 파일일 경우 alert 안내를 띄운 후, 파일 입력 창 값을 비워 초기화하고 `return false`로 폼 제출(Submit) 프로세스를 중단시킵니다 <br>
   - 이 처리를 통해 서버의 무리한 파싱 작업을 줄이고 불필요한 네트워크 트래픽을 방지하여 애플리케이션의 안정성을 높였습니다 <br>
-<br>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5f0a5cfd-a656-4da5-8635-2e17d3612e14" width="80%" />
