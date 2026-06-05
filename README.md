@@ -255,6 +255,7 @@ JSP Form 데이터와 이미지 파일을 `FormData`를 통해 비동기(AJAX)�
    **1. [Back-End] REST Controller & MyBatis SQL** <br>
      - **API 설계 (GET /board/all)** - `@ResponseBody` 어노테이션을 사용하여 데이터 세트(list, pageMaker)를 JSON Object 포맷으로 클라이언트에 즉시 전달합니다 <br>
      - **부분 조회 쿼리** - `LIMIT #{pageStart}, #{perPageNum}` 구문을 사용하여 대용량 테이블 환경에서도 필요한 행만 골라내므로 서버 메모리와 DataBase 부하를 최소화합니다 <br>
+     <br>
    **2. [Front-End] Dynamic HTML Renderer (jQuery)** <br>
    - **동기 이벤트 바인딩** - 동적으로 생성된 페이징 버튼(`.paginate_button a`)에 `on("click")` 이벤트를 위임(Event Delegation) 처리하여, 클릭 시 브라우저 기본 이동(`preventDefault()`)을 막고 가상 form 태그의 page 값을 바인딩하여 `loadList()`를 재호출합니다 <br>
    - **컴포넌트 갱신** - 서버가 응답한 JSON 데이터를 반복문(`$.each`) 돌려 리스트 뷰를 채우고, `makePagination()` 함수를 통해 하단 버튼 UI 구조를 완전히 초기화한 후 매번 새로 렌더링합니다 <br>
