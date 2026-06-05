@@ -51,8 +51,6 @@ Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플�
 </p>
 <br>
 
-
-
 # 5. 기능구조도
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6f24b3d8-b193-43e0-9720-eaed34f23e1f" width=55% />
@@ -62,11 +60,76 @@ Spring MVC 구조와 MyBatis(Mapper)를 사용한 Spring MVC 기반 웹 애플�
 <br>
 
 
-
-
 # 6. 페이지별 핵심기능가이드
-
 <br>
+
+## 1.  메인 랜딩 페이지 (Main Landing Page)
+JSP 템플릿 엔진과 Bootstrap 3, 그리고 jQuery 동적 이벤트를 활용하여 사용자가 대회의 주요 정보(대회소개, 개요, FAQ, 코스)를 단일 웹 화면에서 리로드 없이 탐색할 수 있도록 설계된 마라톤 대회 메인 포털 시스템입니다 <br>
+<br>
+
+### 1-1. 핵심 기술 및 기능적 특성
+
+- **비동기식 탭(Tab) 전환 레이아웃** <br>
+  - Bootstrap 3의 `nav-tabs` 및 `tab-content` 레이아웃를 적용하여 페이지 리로드(Refresh) 과정 없이 동적으로 대회의 카테고리별 정보를 노출합니다 <br>
+  - 이미지 리소스 및 텍스트 데이터를 사전에 돔(DOM) 트리에 배치한 후 상태값 변환 구조를 사용해 트래픽 낭비와 렌더링 지연을 최소화했습니다 <br>
+<br>
+
+- **jQuery 기반 인라인 아코디언 토글 인터랙션 (FAQ)** <br>
+  - 자주 묻는 질문(FAQ) 섹션의 공간 활용 효율성을 극대화하기 위해 인라인 아코디언 컴포넌트를 직접 구현했습니다 <br>
+  - 사용자가 자주묻는질문 영역(`.accordion-title`)을 클릭하면, jQuery 이벤트 리스너가 바로 다음 노드 요소인 답변 영역(`.accordion-content`)을 추적하여 `.toggle()` 처리를 수행하므로 직관적인 뷰 인터랙션을 보장합니다 <br>
+<br>
+
+- **JSTL / EL 및 jQuery 연동 조건부 알림 모달 (Modal System)** <br>
+  - 회원가입 완료나 예외 케이스 처리 시 Controller 에서 넘겨받는 파라미터(`msgType`, `msg`)의 유무를 서버 사이드 렌더링 단계에서 판별합니다 <br>
+  - `msgType`이 "성공메세지"로 판별될 경우, `.attr()` 함수를 동적으로 구동하여 `#myMessage` 모달창을 자동으로 활성화합니다 <br>
+<br>
+
+- **외부 저장소 정적 웹 리소스 매핑** <br>
+  - 웹 애플리케이션 내부(WAR)에 파일을 저장할 경우 재배포 시 파일이 삭제되는 문제를 방지하기 위해 외부 로컬 디렉토리를 지정했습니다 <br>
+  - `servlet-context.xml` 설정을 통해 외부 물리 경로를 가상 웹 경로로 매핑함으로써, 보안을 유지하면서도 클라이언트 화면에 이미지를 정상적으로 렌더링할 수 있도록 지원합니다.<br>
+<br>
+
+- **공통 템플릿 모듈화 및 컨텍스트 절대 경로 제어** <br>
+  - 레이아웃의 중복을 방지하고 단일 관리체계를 구축하기 위해 상단 글로벌 내비게이션 바 영역을 분리하여 구조화했습니다 <br>
+  - 웹 애플리케이션의 컨텍스트 루트 경로 유실을 원천 차단하기 위해 JSTL `<c:set>` 태그로 `contextPath` 변수를 고정 배치하여 스타일시트 및 서버 이미지 소스 리소스의 가상 절대 경로 안정성을 확보했습니다 <br>
+<br>
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/23b33a36-59ca-44bb-aab3-fff44771a2f7" width="80%" />
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ee349085-3de5-4dc2-9246-d71e1725140e" width="80%" />
+  <br>
+   [랜딩페이지 - 대회소개]
+</p>
+<br>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cdf6cfb2-1066-4daa-ab61-061bdbd30b94" width="80%" />
+  <br>
+   [랜딩페이지 - 대회개요]
+</p>
+<br>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bd748062-0210-42de-b3e6-701a87b52a9d" width="80%" />
+  <br>
+   [랜딩페이지 - 자주묻는질문]
+</p>
+<br>
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a68af6cc-7944-407a-9a51-3f451d2dbc76" width="80%" />
+  <br>
+   [랜딩페이지 - 코스안내]
+</p>
+<br>
+
+
+
+
 
 ## 1. 비동기 파일 업로드 시스템 (Asynchronous File Upload)
 JSP Form 데이터와 이미지 파일을 jQuery FormData를 통해 비동기(AJAX)로 전송하고, 서버 측에서 Cos 라이브러리의 `MultipartRequest` 및 UUID를 활용하여 안전하게 파일을 서버 디렉토리에 저장하는 업로드 시스템입니다 <br>
@@ -265,6 +328,8 @@ Bootstrap 3 UI 프레임워크와 jQuery 비동기 통신(AJAX)을 활용하여 
      [마라톤 완주 기록 검색 시스템]
   </p>
   <br>
+
+  
 
 
 
