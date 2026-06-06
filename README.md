@@ -24,7 +24,7 @@
 
 
 ### 1-4. 시연영상
-[https://www.youtube.com/watch?v=HDL472NQWXA](https://youtu.be/vmf_k3DFINk)
+https://youtu.be/vmf_k3DFINk
 <br>
 <br>
 
