@@ -1,7 +1,7 @@
 # 1. 서비스소개 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/79156a85-c85a-4486-8291-2b55ccd44b4e" width="60%" />
+  <img src="https://github.com/user-attachments/assets/5f9cb1ff-43a1-4516-bc85-be69c46939a9" width="15%" />
 </p>
 
 
