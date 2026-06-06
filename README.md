@@ -6,7 +6,7 @@
 
 
 ### 1-1. 서비스명
-- 2026 Hankuk Marathon Web Platform
+- 2026 Hankuk Marathon Web Site
 - Spring MVC 아키텍처 패턴을 기반으로 설계된 '마라톤대회 안내 및 기록조회 플랫폼'<br>
 
 
